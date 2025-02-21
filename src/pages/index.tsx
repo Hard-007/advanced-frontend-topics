@@ -147,6 +147,50 @@ const BlogPage = () => {
         ))}
       </div>
 
+      <div className="mt-8">
+        <h3 className="text-xl font-semibold text-gray-800 mb-4">
+          Artigos Relacionados
+        </h3>
+        <div className="flex flex-wrap grid md:grid-cols-2 gap-4">
+          <div className="p-8 border rounded-lg h-[350px] flex flex-col justify-between">
+            <div>
+              <h4 className="text-lg font-bold text-gray-900 mb-4">
+                Explorando as Melhores Ferramentas de Trading para Iniciantes
+              </h4>
+              <p className="text-sm text-gray-600 line-clamp-4">
+                Descubra as ferramentas mais eficazes para quem está começando
+                no mundo do trading. Este artigo explora as opções mais
+                acessíveis e como usá-las para melhorar sua estratégia de
+                investimento.
+              </p>
+            </div>
+            <div className="mt-4">
+              <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                Ler mais
+              </button>
+            </div>
+          </div>
+          <div className="p-8 border rounded-lg h-[350px] flex flex-col justify-between">
+            <div>
+              <h4 className="text-lg font-bold text-gray-900 mb-4">
+                Como a Inteligência Artificial Está Transformando o Mercado
+                Financeiro
+              </h4>
+              <p className="text-sm text-gray-600 line-clamp-4">
+                A inteligência artificial tem ganhado cada vez mais espaço no
+                mercado financeiro. Neste artigo, discutimos como as empresas
+                estão implementando IA para otimizar decisões de investimento.
+              </p>
+            </div>
+            <div className="mt-4">
+              <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                Ler mais
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="max-w-7xl mx-auto mt-16 bg-gray-100 p-8 rounded-lg flex flex-col gap-6 items-center text-center">
         <span className="text-blue-600 cursor-default">Fique atualizado</span>
         <div className="flex items-center gap-6 w-full">
