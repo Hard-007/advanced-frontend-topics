@@ -157,9 +157,9 @@ const BlogPage = () => {
               placeholder="Digite seu e-mail"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg"
+              className="w-150 p-3 border border-gray-300 rounded-lg"
             />
-            <button className="px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+            <button className="px-10 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
               Inscrever-se
             </button>
           </div>
