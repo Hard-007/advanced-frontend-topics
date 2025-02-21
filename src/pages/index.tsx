@@ -39,7 +39,6 @@ const BlogPage = () => {
 
   return (
     <div className="min-h-screen py-24 px-4 md:px-8">
-      {/* Seção do Cabeçalho */}
       <div className="max-w-7xl mx-auto mb-16">
         <a
           href="/tutorial"
@@ -70,7 +69,6 @@ const BlogPage = () => {
         </p>
       </div>
 
-      {/* Seção de Busca e Tópicos */}
       <div className="max-w-7xl mx-auto mb-16">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-8">
           <div className="relative w-full md:w-96">
@@ -115,7 +113,6 @@ const BlogPage = () => {
         </div>
       </div>
 
-      {/* Grade de Posts do Blog */}
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8">
         {blogPosts.map((post, index) => (
           <article key={index} className="group cursor-pointer">
