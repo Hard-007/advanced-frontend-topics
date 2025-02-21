@@ -191,6 +191,63 @@ const BlogPage = () => {
         </div>
       </div>
 
+      <div className="mt-8">
+        <h3 className="text-xl font-semibold text-gray-800 mb-4">
+          Comentários
+        </h3>
+        <div className="bg-white p-8 rounded-lg shadow-md">
+          <h4 className="text-lg font-semibold text-gray-800 mb-4">
+            Deixe seu comentário
+          </h4>
+          <textarea
+            className="w-full p-4 border border-gray-300 rounded-lg resize-none"
+            rows="5"
+            placeholder="Escreva seu comentário aqui..."
+          ></textarea>
+          <div className="flex justify-end mt-4">
+            <button className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+              Enviar Comentário
+            </button>
+          </div>
+        </div>
+
+        <div className="mt-8">
+          <h4 className="text-lg font-semibold text-gray-800 mb-4">
+            Comentários Recentes
+          </h4>
+          <div className="space-y-6">
+            <div className="p-6 bg-gray-50 border rounded-lg">
+              <p className="text-gray-600">
+                "Excelente artigo! A explicação sobre IA no mercado financeiro
+                foi muito clara. Vou aplicar as dicas no meu trabalho."
+              </p>
+              <div className="flex items-center justify-between mt-4">
+                <span className="text-sm text-gray-500">
+                  Por João Silva - 15 Fev
+                </span>
+                <button className="text-blue-600 hover:text-blue-700">
+                  Responder
+                </button>
+              </div>
+            </div>
+            <div className="p-6 bg-gray-50 border rounded-lg">
+              <p className="text-gray-600">
+                "Gostei muito das sugestões de ferramentas para iniciantes no
+                trading. Vou pesquisar mais sobre isso!"
+              </p>
+              <div className="flex items-center justify-between mt-4">
+                <span className="text-sm text-gray-500">
+                  Por Maria Souza - 12 Fev
+                </span>
+                <button className="text-blue-600 hover:text-blue-700">
+                  Responder
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="max-w-7xl mx-auto mt-16 bg-gray-100 p-8 rounded-lg flex flex-col gap-6 items-center text-center">
         <span className="text-blue-600 cursor-default">Fique atualizado</span>
         <div className="flex items-center gap-6 w-full">
