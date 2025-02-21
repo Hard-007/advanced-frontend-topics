@@ -38,8 +38,22 @@ const BlogPage = () => {
     },
   ];
 
+  const moreArticles = [
+    {
+      title: "Explorando as Melhores Ferramentas de Trading para Iniciantes",
+      content:
+        "Descubra as ferramentas mais eficazes para quem está começando no mundo do trading. Este artigo explora as opções mais acessíveis e como usá-las para melhorar sua estratégia de investimento.",
+    },
+    {
+      title:
+        "Como a Inteligência Artificial Está Transformando o Mercado Financeiro",
+      content:
+        "A inteligência artificial tem ganhado cada vez mais espaço no mercado financeiro. Neste artigo, discutimos como as empresas estão implementando IA para otimizar decisões de investimento.",
+    },
+  ];
+
   return (
-    <div className="min-h-screen py-24 px-4 md:px-8">
+    <div className="min-h-screen container mx-auto py-24 px-4">
       <div className="max-w-7xl mx-auto mb-16">
         <a
           href="/tutorial"
@@ -70,7 +84,7 @@ const BlogPage = () => {
         </p>
       </div>
 
-      <div className="max-w-7xl mx-auto mb-16">
+      <div className=" mb-16">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-8">
           <div className="relative w-full md:w-96">
             <input
@@ -114,7 +128,7 @@ const BlogPage = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8">
+      <div className=" mx-auto grid md:grid-cols-2 gap-8">
         {blogPosts.map((post, index) => (
           <article key={index} className="group cursor-pointer">
             <div className="aspect-video bg-blue-600 rounded-lg mb-4 overflow-hidden">
@@ -147,120 +161,72 @@ const BlogPage = () => {
         ))}
       </div>
 
-      <div className="mt-8">
-        <h3 className="text-xl font-semibold text-gray-800 mb-4">
-          Artigos Relacionados
+      <div className="mt-16">
+        <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">
+          Mais Artigos
         </h3>
-        <div className="flex flex-wrap grid md:grid-cols-2 gap-4">
-          <div className="p-8 border rounded-lg h-[350px] flex flex-col justify-between">
-            <div>
-              <h4 className="text-lg font-bold text-gray-900 mb-4">
-                Explorando as Melhores Ferramentas de Trading para Iniciantes
-              </h4>
-              <p className="text-sm text-gray-600 line-clamp-4">
-                Descubra as ferramentas mais eficazes para quem está começando
-                no mundo do trading. Este artigo explora as opções mais
-                acessíveis e como usá-las para melhorar sua estratégia de
-                investimento.
-              </p>
-            </div>
-            <div className="mt-4">
-              <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                Ler mais
-              </button>
-            </div>
-          </div>
-          <div className="p-8 border rounded-lg h-[350px] flex flex-col justify-between">
-            <div>
-              <h4 className="text-lg font-bold text-gray-900 mb-4">
-                Como a Inteligência Artificial Está Transformando o Mercado
-                Financeiro
-              </h4>
-              <p className="text-sm text-gray-600 line-clamp-4">
-                A inteligência artificial tem ganhado cada vez mais espaço no
-                mercado financeiro. Neste artigo, discutimos como as empresas
-                estão implementando IA para otimizar decisões de investimento.
-              </p>
-            </div>
-            <div className="mt-4">
-              <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                Ler mais
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="mt-8">
-        <h3 className="text-xl font-semibold text-gray-800 mb-4">
-          Comentários
-        </h3>
-        <div className="bg-white p-8 rounded-lg shadow-md">
-          <h4 className="text-lg font-semibold text-gray-800 mb-4">
-            Deixe seu comentário
-          </h4>
-          <textarea
-            className="w-full p-4 border border-gray-300 rounded-lg resize-none"
-            rows="5"
-            placeholder="Escreva seu comentário aqui..."
-          ></textarea>
-          <div className="flex justify-end mt-4">
-            <button className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-              Enviar Comentário
-            </button>
-          </div>
-        </div>
-
-        <div className="mt-8">
-          <h4 className="text-lg font-semibold text-gray-800 mb-4">
-            Comentários Recentes
-          </h4>
-          <div className="space-y-6">
-            <div className="p-6 bg-gray-50 border rounded-lg">
-              <p className="text-gray-600">
-                "Excelente artigo! A explicação sobre IA no mercado financeiro
-                foi muito clara. Vou aplicar as dicas no meu trabalho."
-              </p>
-              <div className="flex items-center justify-between mt-4">
-                <span className="text-sm text-gray-500">
-                  Por João Silva - 15 Fev
-                </span>
-                <button className="text-blue-600 hover:text-blue-700">
-                  Responder
+        <div className="grid md:grid-cols-2 gap-8">
+          {moreArticles.map((article, index) => (
+            <div
+              key={index}
+              className="group p-8 bg-white border border-gray-100 rounded-xl shadow-sm 
+                hover:shadow-xl hover:border-blue-100 hover:scale-[1.02] 
+                transition-all duration-300 h-[380px] flex flex-col justify-between"
+            >
+              <div>
+                <div className="flex items-center gap-2 mb-6">
+                  <div className="w-2 h-2 rounded-full bg-blue-600"></div>
+                  <span className="text-sm text-blue-600 font-medium">
+                    Artigo {index + 1}
+                  </span>
+                </div>
+                <h4 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors">
+                  {article.title}
+                </h4>
+                <p className="text-base text-gray-600 line-clamp-4 leading-relaxed">
+                  {article.content}
+                </p>
+              </div>
+              <div className="mt-6">
+                <button
+                  className="inline-flex items-center gap-2 bg-gray-50 text-gray-900 font-medium 
+                  py-2.5 px-5 rounded-lg group-hover:bg-blue-600 group-hover:text-white 
+                  transition-all duration-300"
+                >
+                  Ler mais
+                  <svg
+                    className="w-4 h-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+                    <path
+                      d="M5 12h14m-7-7l7 7-7 7"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </button>
               </div>
             </div>
-            <div className="p-6 bg-gray-50 border rounded-lg">
-              <p className="text-gray-600">
-                "Gostei muito das sugestões de ferramentas para iniciantes no
-                trading. Vou pesquisar mais sobre isso!"
-              </p>
-              <div className="flex items-center justify-between mt-4">
-                <span className="text-sm text-gray-500">
-                  Por Maria Souza - 12 Fev
-                </span>
-                <button className="text-blue-600 hover:text-blue-700">
-                  Responder
-                </button>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto mt-16 bg-gray-100 p-8 rounded-lg flex flex-col gap-6 items-center text-center">
         <span className="text-blue-600 cursor-default">Fique atualizado</span>
-        <div className="flex items-center gap-6 w-full">
+        <div className="flex flex-col md:flex-row items-center gap-6 w-full">
           <h2 className="text-2xl font-bold">Junte-se à nossa newsletter</h2>
-          <div className="flex flex-col w-200 md:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
             <input
               type="email"
               placeholder="Digite seu e-mail"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-150 p-3 border border-gray-300 rounded-lg"
+              className="w-full sm:w-80 p-3 border border-gray-300 rounded-lg"
             />
-            <button className="px-10 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+            <button className="w-full sm:w-auto px-10 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
               Inscrever-se
             </button>
           </div>
