@@ -1,16 +1,13 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./assets/css/App.css";
-import HomePage from "./pages";
+import { RouterSetup } from "./router";
 import Navbar from "./components/Navbar";
 
 const App = () => {
   return (
-    <Router>
+    <div>
       <Navbar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-      </Routes>
-    </Router>
+      <RouterSetup />
+    </div>
   );
 };
 
