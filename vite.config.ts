@@ -19,6 +19,7 @@ export default defineConfig({
         scope: "/",
         lang: "pt-PT",
         dir: "ltr",
+        categories: ["programação", "tecnologia", "desenvolvimento"],
         icons: [
           {
             src: "/android-chrome-192x192.png",
@@ -30,6 +31,19 @@ export default defineConfig({
             sizes: "512x512",
             type: "image/png",
           },
+        ],
+        screenshots: [
+          {
+            "src": "/img/screenshots/mobile.jpeg",
+            "sizes": "360x751",
+            "type": "image/jpeg"
+          },
+          {
+            "src": "/img/screenshots/desktop.png",
+            "sizes": "2560x1600",
+            "type": "image/png",
+            "form_factor": "wide"
+          }
         ],
         theme_color: "#ffffff",
         background_color: "#ffffff",
