@@ -14,6 +14,11 @@ export default defineConfig({
       manifest: {
         name: "Console.log",
         short_name: "Console.log",
+        description: 'O melhor blog de programação para desenvolvedores.',
+        start_url: "/",
+        scope: "/",
+        lang: "pt-PT",
+        dir: "ltr",
         icons: [
           {
             src: "/android-chrome-192x192.png",
