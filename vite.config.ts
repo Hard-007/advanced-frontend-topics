@@ -34,12 +34,12 @@ export default defineConfig({
         ],
         screenshots: [
           {
-            "src": "/img/screenshots/mobile.jpeg",
+            "src": "/screenshots/mobile.jpeg",
             "sizes": "360x751",
             "type": "image/jpeg"
           },
           {
-            "src": "/img/screenshots/desktop.png",
+            "src": "/screenshots/desktop.png",
             "sizes": "2560x1600",
             "type": "image/png",
             "form_factor": "wide"
