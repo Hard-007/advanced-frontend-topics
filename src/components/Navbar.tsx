@@ -1,9 +1,14 @@
 import { useState, useEffect } from "react";
+import { useFirebase } from "../hooks/useFirebase";
+import { auth } from "../../firebase.config";
+import { User } from "firebase/auth";
 
 const Navbar = () => {
   // const [searchQuery, setSearchQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const { signWithGoogle } = useFirebase();
 
   // Detectar scroll
   useEffect(() => {
@@ -12,6 +17,13 @@ const Navbar = () => {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const handleAuthStateChange = (user: any) => {
+      setUser(user);
+    };
+    auth.onAuthStateChanged(handleAuthStateChange);
   }, []);
 
   return (
@@ -76,8 +88,9 @@ const Navbar = () => {
           <button
             className="flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg text-base 
             transition-all hover:bg-blue-700 hover:shadow-lg transform hover:-translate-y-0.5"
+            onClick={signWithGoogle}
           >
-            Começar
+            {user ? user.displayName : "Entrar com Google"}
             <svg
               width="20"
               height="20"
@@ -119,8 +132,9 @@ const Navbar = () => {
           <button
             className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-3 
             rounded-lg text-base transition-colors hover:bg-blue-700"
+            onClick={signWithGoogle}
           >
-            Começar
+            {user ? user.displayName : "Entrar com Google"}
             <svg
               width="20"
               height="20"
