@@ -2,25 +2,20 @@ import { useState, useEffect } from "react";
 import { useFirebase } from "../hooks/useFirebase";
 import { auth } from "../../firebase.config";
 import { User } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   // const [searchQuery, setSearchQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+
   const [user, setUser] = useState<User | null>(null);
   const { signWithGoogle } = useFirebase();
+  const navigate = useNavigate();
 
   // Detectar scroll
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   useEffect(() => {
-    const handleAuthStateChange = (user: any) => {
+    const handleAuthStateChange = (user: User | null) => {
       setUser(user);
     };
     auth.onAuthStateChanged(handleAuthStateChange);
@@ -28,14 +23,16 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed w-full px-8 py-4 transition-all duration-300 z-50 
-      ${isScrolled ? "bg-white shadow-lg" : "bg-transparent"}`}
+      className={` w-full px-8 py-2 transition-all duration-300 z-50 bg-slate-800`}
     >
       <div className="flex justify-between items-center container mx-auto">
         <div className="flex items-center gap-8">
-          <div className="flex items-center gap-2 hover:scale-105 transition-transform cursor-pointer">
+          <div
+            className="flex items-center gap-2 hover:scale-105 transition-transform cursor-pointer"
+            onClick={() => navigate("/")}
+          >
             <div className="w-8 h-8 bg-blue-600 rounded-full animate-pulse"></div>
-            <span className="text-2xl font-bold text-gray-800 hover:text-blue-600 transition-colors">
+            <span className="text-xl font-bold text-white hover:text-blue-600 transition-colors">
               Console.log
             </span>
           </div>
@@ -72,19 +69,45 @@ const Navbar = () => {
           </svg>
         </button>
 
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-4">
           <div className="flex gap-8">
             {["Início", "Artigos"].map((item) => (
               <a
                 key={item}
                 href={`/${item.toLowerCase()}`}
-                className="text-gray-500 text-base hover:text-blue-600 transition-colors relative group"
+                className="text-white text-base hover:text-blue-600 transition-colors relative group"
               >
                 {item}
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 group-hover:w-full transition-all duration-300"></span>
               </a>
             ))}
           </div>
+
+          {user && (
+            <button
+              onClick={() => navigate("/create-post")}
+              className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg 
+              transition-all hover:bg-green-700 hover:shadow-lg transform hover:-translate-y-0.5"
+            >
+              Criar Post
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                className="transition-transform group-hover:translate-x-1"
+              >
+                <path
+                  d="M12 5v14M5 12h14"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          )}
+
           <button
             className="flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg text-base 
             transition-all hover:bg-blue-700 hover:shadow-lg transform hover:-translate-y-0.5"
@@ -111,7 +134,7 @@ const Navbar = () => {
       </div>
 
       <div
-        className={`md:hidden absolute top-full left-0 w-full bg-white shadow-lg transition-all duration-300 
+        className={`md:hidden absolute top-full left-0 w-full bg-slate-800 shadow-lg transition-all duration-300 
         ${
           isOpen
             ? "opacity-100 translate-y-0"
@@ -123,11 +146,35 @@ const Navbar = () => {
             <a
               key={item}
               href={`/${item.toLowerCase()}`}
-              className="block py-2 text-gray-500 hover:text-blue-600 transition-colors"
+              className="block py-2 text-white hover:text-blue-600 transition-colors"
             >
               {item}
             </a>
           ))}
+
+          {user && (
+            <button
+              onClick={() => navigate("/create-post")}
+              className="w-full flex items-center justify-center gap-2 bg-green-600 text-white px-4 py-2 
+              rounded-lg transition-all hover:bg-green-700"
+            >
+              Criar Post
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                <path
+                  d="M12 5v14M5 12h14"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          )}
 
           <button
             className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-3 

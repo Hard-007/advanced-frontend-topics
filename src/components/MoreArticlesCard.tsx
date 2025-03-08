@@ -1,43 +1,40 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-interface Article {
-  title: string;
-  content: string;
-}
-
-const MoreArticlesCard: React.FC<{ article: Article; index: number }> = ({
+const MoreArticlesCard: React.FC<{ article: any; index: number }> = ({
   article,
   index,
 }) => {
   return (
     <div
-      className="group p-8 bg-white border border-gray-100 rounded-xl shadow-sm 
-        hover:shadow-xl hover:border-blue-100 hover:scale-[1.02] 
-        transition-all duration-300 h-[380px] flex flex-col justify-between"
+      className="group p-6 bg-white border border-gray-200 rounded-lg hover:shadow-lg 
+        transition-all duration-300 h-[160px] flex  justify-between hover:border-blue-200"
     >
       <div>
-        <div className="flex items-center gap-2 mb-6">
-          <div className="w-2 h-2 rounded-full bg-blue-600"></div>
-          <span className="text-sm text-blue-600 font-medium">
+        <div className="flex items-center gap-2 mb-3">
+          <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
+          <span className="text-xs text-blue-500 font-medium uppercase tracking-wide">
             Artigo {index + 1}
           </span>
         </div>
-        <h4 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors">
+        <h4 className="text-lg font-semibold text-gray-800 mb-2 group-hover:text-blue-600 transition-colors line-clamp-2">
           {article.title}
         </h4>
-        <p className="text-base text-gray-600 line-clamp-4 leading-relaxed">
-          {article.content}
-        </p>
+        <div
+          dangerouslySetInnerHTML={{ __html: article.content }}
+          className="text-sm text-gray-600 line-clamp-3 leading-relaxed"
+        ></div>
       </div>
-      <div className="mt-6">
-        <button
-          className="inline-flex items-center gap-2 bg-gray-50 text-gray-900 font-medium 
-          py-2.5 px-5 rounded-lg group-hover:bg-blue-600 group-hover:text-white 
-          transition-all duration-300"
+      <div className="mt-4">
+        <Link
+          to={`/post/${article.id}`}
+          className="inline-flex items-center gap-1.5 text-sm font-medium 
+          py-2 px-4 rounded-md text-blue-600 hover:text-white hover:bg-blue-600 
+          transition-all duration-200 border border-blue-200 hover:border-blue-600"
         >
           Ler mais
           <svg
-            className="w-4 h-4"
+            className="w-3.5 h-3.5"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -49,7 +46,7 @@ const MoreArticlesCard: React.FC<{ article: Article; index: number }> = ({
               strokeLinejoin="round"
             />
           </svg>
-        </button>
+        </Link>
       </div>
     </div>
   );
