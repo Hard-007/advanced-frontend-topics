@@ -1,9 +1,26 @@
 import { useState, useEffect } from "react";
+import { useFirebase } from "../hook/useFirebase";
+import { auth } from "../../firebase.config";
 
 const Navbar = () => {
   // const [searchQuery, setSearchQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  // const {signWithGoogle} = useFirebase();
+  const {logout} = useFirebase();
+
+  const user = auth.currentUser;
+
+  // const handleSignWithGoogle = async () => {
+  //   try {
+  //     await signWithGoogle();
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  //   finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   // Detectar scroll
   useEffect(() => {
@@ -13,6 +30,14 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    const handleAuthStateChange = (user: any) => {
+      // Implement Firebase authentication
+      console.log(user);
+    };
+    auth.onAuthStateChanged(handleAuthStateChange);
+  }, [user]);
 
   return (
     <nav
@@ -32,6 +57,7 @@ const Navbar = () => {
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="md:hidden text-gray-500 hover:text-blue-600 transition-colors"
+          title="Toggle menu"
         >
           <svg
             width="24"
@@ -73,11 +99,11 @@ const Navbar = () => {
               </a>
             ))}
           </div>
-          <button
+          <a href={'/login'}
             className="flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg text-base 
             transition-all hover:bg-blue-700 hover:shadow-lg transform hover:-translate-y-0.5"
           >
-            Começar
+            {user ? user.displayName : "Login"}
             <svg
               width="20"
               height="20"
@@ -93,7 +119,53 @@ const Navbar = () => {
                 strokeLinejoin="round"
               />
             </svg>
-          </button>
+          </a>
+          {/* <button
+            onClick={() => signWithGoogle()}
+            className="flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg text-base 
+            transition-all hover:bg-blue-700 hover:shadow-lg transform hover:-translate-y-0.5"
+          >
+            {user ? user.displayName : "Entrar com Google"}
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              className="stroke-white transition-transform group-hover:translate-x-1"
+            >
+              <path
+                d="M5 12H19M19 12L12 5M19 12L12 19"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button> */}
+          {user ? (
+            <button
+              onClick={() => logout()}
+              className="flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg text-base
+              transition-all hover:bg-blue-700 hover:shadow-lg transform hover:-translate-y-0.5"
+            >
+              Logout
+                <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                className="stroke-white transition-transform group-hover:translate-x-1"
+                >
+                <path
+                  d="M17 16L21 12M21 12L17 8M21 12H9M13 16V18C13 19.1046 12.1046 20 11 20H7C5.89543 20 5 19.1046 5 18V6C5 4.89543 5.89543 4 7 4H11C12.1046 4 13 4.89543 13 6V8"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                </svg>
+            </button>
+          ) : ""}
         </div>
       </div>
 
@@ -117,10 +189,11 @@ const Navbar = () => {
           ))}
 
           <button
+            onClick={() => signWithGoogle()}
             className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-3 
             rounded-lg text-base transition-colors hover:bg-blue-700"
           >
-            Começar
+            {user ? user.displayName : "Entrar com Google"}
             <svg
               width="20"
               height="20"
