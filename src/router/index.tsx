@@ -5,8 +5,9 @@ import LoginPage from "../pages/auth/login";
 import SignupPage from "../pages/auth/signup";
 import ForgotPasswordPage from "../pages/auth/forgotPassword";
 import CreatePost from "../pages/post/create";
+import EditPost from "../pages/post/edit/[id]";
+import ReadPost from "../pages/post/[id]";
 import Layout from "../components/Layout";
-import PostDetails from "../pages/post/[id]";
 
 export const RouterSetup = () => {
   return (
@@ -18,7 +19,8 @@ export const RouterSetup = () => {
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/create-post" element={<CreatePost />} />
-          <Route path="/post/:id" element={<PostDetails />} />
+          <Route path="/post/:id" element={<ReadPost />} />
+          <Route path="/post/edit/:id" element={<EditPost />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -10,7 +10,8 @@ interface BlogPost {
   description: string;
   image: string;
   date: string;
-  author: string;
+  authorName: string;
+  readTime?: string;
   [key: string]: any;
 }
 

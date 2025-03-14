@@ -4,8 +4,8 @@ interface BlogPost {
   date: string;
   title: string;
   excerpt: string;
-  author: string;
-  readTime: string;
+  authorName: string;
+  readTime?: string;
   category: string;
   image: string;
 }
@@ -34,7 +34,7 @@ const BlogPostCard: React.FC<{ post: BlogPost }> = ({ post }) => {
         </h3>
         <p className="text-gray-600 line-clamp-3">{post.excerpt}</p>
         <div className="flex items-center gap-2 text-gray-500">
-          <span>By {post.author}</span>
+          <span>By {post.authorName}</span>
           <span>•</span>
           <span>{post.readTime}</span>
         </div>

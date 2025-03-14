@@ -8,7 +8,7 @@ const MoreArticlesCard: React.FC<{ article: any; index: number }> = ({
   return (
     <div
       className="group p-6 bg-white border border-gray-200 rounded-lg hover:shadow-lg 
-        transition-all duration-300 h-[160px] flex  justify-between hover:border-blue-200"
+        transition-all duration-300 h-[180px] flex  justify-between hover:border-blue-200"
     >
       <div>
         <div className="flex items-center gap-2 mb-3">
@@ -22,8 +22,14 @@ const MoreArticlesCard: React.FC<{ article: any; index: number }> = ({
         </h4>
         <div
           dangerouslySetInnerHTML={{ __html: article.content }}
-          className="text-sm text-gray-600 line-clamp-3 leading-relaxed"
+          className="text-sm text-gray-600 line-clamp-2 leading-relaxed"
         ></div>
+        <div className="flex items-center gap-2 mt-2">
+          <small className="text-sm text-gray-500">
+            {article.readTime}
+          </small>
+          <small className="text-sm text-gray-500"> - {article.authorName}</small>
+        </div>
         
       </div>
       <div className="mt-4">

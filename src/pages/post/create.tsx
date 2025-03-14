@@ -42,6 +42,15 @@ const CreatePost = () => {
     e.preventDefault();
 
     // Validações
+    if (!title.trim() || title.length < 5) {
+      toast.current?.show({
+        severity: "error",
+        summary: "Erro",
+        detail: "O título deve ter pelo menos 5 caracteres",
+        life: 3000,
+      });
+      return;
+    }
     if (!content.trim()) {
       toast.current?.show({
         severity: "error",
@@ -51,6 +60,9 @@ const CreatePost = () => {
       });
       return;
     }
+    if (!auth.currentUser) {
+      throw new Error("Usuário não autenticado");
+    }
 
     try {
       setIsLoading(true);
@@ -58,8 +70,9 @@ const CreatePost = () => {
       const postData = {
         title,
         content,
-        author: auth.currentUser?.displayName,
         readTime: `${readTimeMinutes} min de leitura`,
+        authorId: auth.currentUser?.uid,
+        authorName: auth.currentUser?.displayName || "",
         createdAt: new Date().toISOString(),
       };
 
@@ -152,24 +165,33 @@ const CreatePost = () => {
             </p>
           </div>
 
-          <button
-            type="submit"
-            disabled={isLoading}
-            className={`w-full bg-blue-600 text-white py-4 rounded-lg hover:bg-blue-700 transition flex items-center justify-center gap-2
-              ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
-          >
-            {isLoading ? (
-              <>
-                <ProgressSpinner
-                  style={{ width: "20px", height: "20px", color: "white" }}
-                  color="white"
-                />
-                <span>Criando post...</span>
-              </>
-            ) : (
-              "Publicar Post"
-            )}
-          </button>
+          <div className="flex gap-4">
+            <button
+                type="button"
+                onClick={() => navigate(`/`)}
+                className="w-1/2 bg-gray-300 text-gray-800 py-4 rounded-lg hover:bg-gray-400 transition"
+            >
+                Cancelar
+            </button>
+            <button
+                type="submit"
+                disabled={isLoading}
+                className={`w-1/2 bg-blue-600 text-white py-4 rounded-lg hover:bg-blue-700 transition flex items-center justify-center gap-2
+                ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
+            >
+                {isLoading ? (
+                <>
+                    <ProgressSpinner
+                    style={{ width: "20px", height: "20px", color: "white" }}
+                    color="white"
+                    />
+                    <span>Criando post...</span>
+                </>
+                ) : (
+                "Publicar Post"
+                )}
+            </button>
+          </div>
         </form>
       )}
     </div>

@@ -11,7 +11,8 @@ interface BlogPost {
   content: string;
   image: string;
   createdAt: string;
-  author: string;
+  authorId: string,
+  authorName: string;
   readTime?: string;
   category?: string;
   likeCount?: number;
@@ -29,7 +30,7 @@ interface Comment {
   likes: number;
 }
 
-const PostDetails = () => {
+const ReadPost = () => {
   const { id } = useParams();
   const [post, setPost] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
@@ -37,6 +38,7 @@ const PostDetails = () => {
   const navigate = useNavigate();
   const {
     getPostById,
+    deletePost,
     addComment,
     deleteComment,
     toggleLike,
@@ -44,14 +46,13 @@ const PostDetails = () => {
   } = useFirebase();
 
   useEffect(() => {
+    let unsubscribe: () => void;
     const fetchPost = async () => {
       if (id) {
         try {
           const postData = await getPostById(id);
           setPost(postData as BlogPost);
-          // Subscribe to real-time comments updates
-          const unsubscribe = subscribeToComments(id);
-          return () => unsubscribe();
+          unsubscribe = subscribeToComments(id);
         } catch (error) {
           console.error("Error fetching post:", error);
         } finally {
@@ -60,7 +61,10 @@ const PostDetails = () => {
       }
     };
     fetchPost();
-  }, []);
+    return () => {
+      if (unsubscribe) unsubscribe();
+    };
+  }, [id]);
 
   const handleAddComment = async () => {
     if (!auth.currentUser || !id || !newComment.trim()) return;
@@ -77,6 +81,16 @@ const PostDetails = () => {
       setNewComment("");
     } catch (error) {
       console.error("Error adding comment:", error);
+    }
+  };
+
+  const handleDeletePost = async () => {
+    if (!id) return;
+    try {
+      await deletePost(id);
+      navigate("/");
+    } catch (error) {
+      console.error("Error deleting post:", error);
     }
   };
 
@@ -140,7 +154,7 @@ const PostDetails = () => {
       <div className="max-w-4xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
         <Header
           title={post.title}
-          subtitle={`Por ${post.author} • ${new Date(post.createdAt).toLocaleDateString()} • ${new Date(post.createdAt).toLocaleTimeString()}`}
+          subtitle={`Por ${post.authorName} • ${new Date(post.createdAt).toLocaleDateString()} • ${new Date(post.createdAt).toLocaleTimeString()}`}
         />
 
         {post.image && (
@@ -186,9 +200,27 @@ const PostDetails = () => {
               className="text-gray-800 leading-relaxed"
             />
           </article>
+          {
+            post.authorId==auth.currentUser?.uid ? (
+              <div className="flex justify-start mt-4">
+                <button
+                  onClick={() => navigate(`/post/edit/${id}`)}
+                  className="mr-2 px-6 py-1.5 border-1 border-blue-600 text-blue-600 rounded-lg hover:bg-blue-200"
+                >
+                  Editar
+                </button>
+                <button
+                  onClick={handleDeletePost}
+                  className="ml-2 px-6 py-1.5 border-1 border-red-600 text-red-600 rounded-lg hover:bg-red-200"
+                >
+                  Excluir
+                </button>
+              </div>
+            ) : null
+          }
 
           {/* Comments Section */}
-          <div className="mt-12 pt-8 border-t border-gray-200">
+          <div className="mt-8 pt-8 border-t border-gray-200">
             <h3 className="text-xl font-semibold text-gray-800 mb-8">
               Comentários ({post.commentCount || 0})
             </h3>
@@ -365,4 +397,4 @@ const PostDetails = () => {
   );
 };
 
-export default PostDetails;
+export default ReadPost;

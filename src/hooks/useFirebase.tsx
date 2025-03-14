@@ -184,6 +184,44 @@ export const useFirebase = () => {
     }
   };
 
+  const updatePost = async (postId: string, postData: Partial<any>) => {
+    try {
+      const postRef = ref(db, `posts/${postId}`);
+      await update(postRef, postData);
+      return true;
+    } catch (error) {
+      console.error("Error updating post:", error);
+      throw error;
+    }
+  };
+
+  const deletePost = async (postId: string) => {
+    try {
+      if (!auth.currentUser) throw new Error("User must be logged in");
+      
+      // Get post data to verify ownership
+      const postRef = ref(db, `posts/${postId}`);
+      const postSnapshot = await get(postRef);
+      
+      if (!postSnapshot.exists()) throw new Error("Post not found");
+      
+      const post = postSnapshot.val();
+      if (post.userId !== auth.currentUser.uid) throw new Error("Not authorized to delete this post");
+      
+      // Delete post
+      await remove(postRef);
+      
+      // Delete related comments
+      const commentsRef = ref(db, `comments/${postId}`);
+      await remove(commentsRef);
+      
+      return true;
+    } catch (error) {
+      console.error("Error deleting post:", error);
+      throw error;
+    }
+  };
+
   const getPostById = async (id: string) => {
     try {
       const snapshot = await get(child(ref(db), `posts/${id}`));
@@ -355,6 +393,8 @@ export const useFirebase = () => {
     handleSubmitPost,
     getPosts,
     getPostById,
+    updatePost,
+    deletePost,
     posts,
     comments,
     subscribeToPath,

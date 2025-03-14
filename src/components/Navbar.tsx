@@ -32,7 +32,7 @@ const Navbar = () => {
 
 
   return (
-    <nav className={`w-full px-8 py-2 transition-all duration-300 z-50 bg-white border-b border-gray-200`}
+    <nav className={`w-full px-8 py-2.5 transition-all duration-300 z-50 bg-white border-b border-gray-200`}
     >
       <div className="flex justify-between items-center container mx-auto">
         <div className="flex items-center gap-8">
