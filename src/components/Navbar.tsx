@@ -226,7 +226,7 @@ const Navbar = () => {
               className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-3 
               rounded-lg text-base transition-colors hover:bg-blue-700"
             >
-              Login
+              Loginn
               <svg
                 width="20"
                 height="20"
