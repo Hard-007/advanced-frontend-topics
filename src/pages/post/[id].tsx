@@ -10,7 +10,7 @@ interface BlogPost {
   title: string;
   content: string;
   image: string;
-  date: string;
+  createdAt: string;
   author: string;
   readTime?: string;
   category?: string;
@@ -140,7 +140,7 @@ const PostDetails = () => {
       <div className="max-w-4xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
         <Header
           title={post.title}
-          subtitle={`Por ${post.author} • ${post.date}`}
+          subtitle={`Por ${post.author} • ${new Date(post.createdAt).toLocaleDateString()} • ${new Date(post.createdAt).toLocaleTimeString()}`}
         />
 
         {post.image && (
@@ -274,7 +274,7 @@ const PostDetails = () => {
               </div>
             ) : (
               <div
-                className="mb-8 p-4 mx-auto w-150 bg-gray-100 rounded-lg border-2 border-blue-500 cursor-pointer
+                className="my-12 p-4 mx-auto w-150 bg-gray-100 rounded-lg border-2 border-blue-500 cursor-pointer
                 transition-all hover:bg-blue-100 hover:shadow-lg transform hover:-translate-y-0.5"
                 onClick={() => navigate("/login")}
               >
@@ -286,7 +286,7 @@ const PostDetails = () => {
           </div>
 
           {/* Social Share Section */}
-          <div className="mt-12 pt-8 border-t border-gray-200">
+          <div className="mt-8 pt-8 border-t border-gray-200">
             <h3 className="text-xl font-semibold text-gray-800 mb-4">
               Compartilhe este artigo
             </h3>

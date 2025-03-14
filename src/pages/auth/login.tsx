@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { useFirebase } from '../hooks/useFirebase';
+import { useFirebase } from '../../hooks/useFirebase';
 
 const LoginPage: React.FC = () => {
     const [email, setEmail] = useState('');

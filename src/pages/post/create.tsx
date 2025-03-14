@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { Editor } from "primereact/editor";
 import { Toast } from "primereact/toast";
 import { ProgressSpinner } from "primereact/progressspinner";
-import { useFirebase } from "../hooks/useFirebase";
-import { auth } from "../../firebase.config";
+import { useFirebase } from "../../hooks/useFirebase";
+import { auth } from "../../../firebase.config";
 import { User } from "firebase/auth";
 
 const CreatePost = () => {
@@ -57,8 +57,8 @@ const CreatePost = () => {
 
       const postData = {
         title,
-        date: new Date(),
         content,
+        author: auth.currentUser?.displayName,
         readTime: `${readTimeMinutes} min de leitura`,
         createdAt: new Date().toISOString(),
       };
@@ -71,6 +71,8 @@ const CreatePost = () => {
         detail: "Post criado com sucesso!",
         life: 3000,
       });
+
+      navigate("/");
       // navigate("/");
     } catch (error) {
       console.error("Erro ao criar post:", error);
