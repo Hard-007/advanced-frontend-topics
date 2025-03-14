@@ -12,12 +12,14 @@ const firebaseConfig = {
   storageBucket: "consolelog-5e9b0.firebasestorage.app",
   messagingSenderId: "231537152934",
   appId: "1:231537152934:web:632f693e90ee6e67bc3567",
-  measurementId: "G-NXMJ9WLVVW"
+  measurementId: "G-NXMJ9WLVVW",
+  databaseURL: "https://consolelog-5e9b0-default-rtdb.firebaseio.com",
 };
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+export const db = getDatabase(app);
 export const storage = getStorage(app);
 export const database = getDatabase(app);
 export const googleProvider = new GoogleAuthProvider();
