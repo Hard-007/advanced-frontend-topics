@@ -4,7 +4,7 @@ import { getDatabase } from "firebase/database";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBz1lTUgJSFyq2elxTfdKRkE0sgGvBjlWQ",
+  apiKey: process.env.FIREBASE_API_KEY,
   authDomain: "consolelog-cc937.firebaseapp.com",
   projectId: "consolelog-cc937",
   storageBucket: "consolelog-cc937.firebasestorage.app",

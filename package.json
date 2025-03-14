@@ -12,6 +12,7 @@
   "dependencies": {
     "@syncfusion/ej2-react-richtexteditor": "^28.2.9",
     "@tailwindcss/vite": "^4.0.7",
+    "dotenv": "^16.4.7",
     "firebase": "^11.4.0",
     "primeicons": "^7.0.0",
     "primereact": "^10.9.2",
