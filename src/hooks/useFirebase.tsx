@@ -2,7 +2,9 @@ import {
     signInWithPopup, 
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
+    sendPasswordResetEmail as sendResetEmail,
     signOut,
+    updateProfile,
     UserCredential
 } from "firebase/auth";
 import { auth, db, googleProvider } from "../../firebase.config";
@@ -68,12 +70,19 @@ export const useFirebase = () => {
     };
 
     // Register with email and password
-    const registerWithEmail = async (email: string, password: string): Promise<UserCredential | null> => {
+    const registerWithEmail = async (name: string, email: string, password: string): Promise<UserCredential | null> => {
         setLoading(true);
         setError(null);
         
         try {
             const result = await createUserWithEmailAndPassword(auth, email, password);
+
+            if (result.user) {
+              await updateProfile(result.user, {
+                displayName: name
+              });
+            }
+
             return result;
         } catch (err: any) {
             setError(err.message || "Failed to register");
@@ -81,6 +90,22 @@ export const useFirebase = () => {
         } finally {
             setLoading(false);
         }
+    };
+
+    // Password reset email
+    const sendPasswordResetEmail = async (email: string): Promise<boolean> => {
+      setLoading(true);
+      setError(null);
+      
+      try {
+        await sendResetEmail(auth, email);
+        return true;
+      } catch (err: any) {
+        setError(err.message || "Failed to send password reset email");
+        return false;
+      } finally {
+        setLoading(false);
+      }
     };
 
     const logout = async () => {
@@ -325,6 +350,7 @@ export const useFirebase = () => {
     signInWithGoogle,
     signInWithEmail,
     registerWithEmail,
+    sendPasswordResetEmail,
     logout,
     handleSubmitPost,
     getPosts,

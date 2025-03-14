@@ -32,7 +32,7 @@ const Navbar = () => {
 
 
   return (
-    <nav className={`w-full px-8 py-2 transition-all duration-300 z-50 bg-white`}
+    <nav className={`w-full px-8 py-2 transition-all duration-300 z-50 bg-white border-b border-gray-200`}
     >
       <div className="flex justify-between items-center container mx-auto">
         <div className="flex items-center gap-8">
@@ -48,13 +48,19 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-4">
-            {user?.photoURL && (
+          {user?.photoURL ? (
             <img 
-              src={user.photoURL} 
-              alt="User profile" 
-              className="w-8 h-8 rounded-full object-cover block md:hidden" 
+            src={user.photoURL} 
+            alt="User profile" 
+            className="w-8 h-8 rounded-full object-cover block md:hidden"  
             />
-            )}
+          ):(
+            <div 
+              className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-medium text-lg md:hidden"
+            >
+              {user?.displayName ? user.displayName.charAt(0).toUpperCase() : user?.email?.charAt(0).toUpperCase() || '?'}
+            </div>
+          )}
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden text-gray-500 hover:text-blue-600 transition-colors"
@@ -127,46 +133,53 @@ const Navbar = () => {
           )}
           {user ? (
             <div className="relative">
-              {user?.photoURL && (
+              {user?.photoURL ? (
                 <img 
                 src={user.photoURL} 
                 alt="User profile" 
                 className="w-10 h-10 rounded-full object-cover cursor-pointer" 
                 onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)} 
                 />
+              ):(
+                <div 
+                  className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-medium text-lg cursor-pointer"
+                  onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
+                >
+                  {user?.displayName ? user.displayName.charAt(0).toUpperCase() : user?.email?.charAt(0).toUpperCase() || '?'}
+                </div>
               )}
               {isProfileDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-36 bg-white shadow-lg rounded-lg py-2 z-10 border border-gray-200">
-                  <button
-                    onClick={() => {
-                    logout();
-                    setIsProfileDropdownOpen(false);
-                    }}
-                    className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-blue-100 w-full text-left"
-                  >
-                    Logout
-                    <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    className="stroke-current"
-                    >
-                    <path
-                      d="M17 16L21 12M21 12L17 8M21 12H9M13 16V18C13 19.1046 12.1046 20 11 20H7C5.89543 20 5 19.1046 5 18V6C5 4.89543 5.89543 4 7 4H11C12.1046 4 13 4.89543 13 6V8"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    </svg>
-                  </button>
-                </div>
+              <div className="absolute right-0 mt-2 w-36 bg-white shadow-lg rounded-lg py-2 z-10 border border-gray-200">
+                <button
+                onClick={() => {
+                logout();
+                setIsProfileDropdownOpen(false);
+                }}
+                className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-blue-100 w-full text-left"
+                >
+                Logout
+                <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                className="stroke-current"
+                >
+                <path
+                  d="M17 16L21 12M21 12L17 8M21 12H9M13 16V18C13 19.1046 12.1046 20 11 20H7C5.89543 20 5 19.1046 5 18V6C5 4.89543 5.89543 4 7 4H11C12.1046 4 13 4.89543 13 6V8"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                </svg>
+                </button>
+              </div>
               )}
             </div>
           ) : (
             <a href={'/login'}
-              className="flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg text-base 
+              className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg text-base 
               transition-all hover:bg-blue-700 hover:shadow-lg transform hover:-translate-y-0.5"
               >
               Login
@@ -260,7 +273,7 @@ const Navbar = () => {
             </button>
           ) : (
             <a href="/login"
-              className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-3 
+              className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white px-4 py-2 
               rounded-lg text-base transition-colors hover:bg-blue-700"
             >
               Login

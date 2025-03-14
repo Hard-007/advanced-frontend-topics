@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-
+import { useNavigate } from "react-router-dom";
 import { useFirebase } from '../hooks/useFirebase';
 
 const LoginPage: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
     
     // Use the Firebase hook instead of direct Firebase calls
     const { loading, error, signInWithGoogle, signInWithEmail } = useFirebase();
@@ -13,14 +14,14 @@ const LoginPage: React.FC = () => {
         e.preventDefault();
         const result = await signInWithEmail(email, password);
         if (result) {
-            router.push('/dashboard');
+            navigate('/');
         }
     };
 
     const handleGoogleLogin = async () => {
         const result = await signInWithGoogle();
         if (result) {
-            router.push('/dashboard');
+            navigate('/');
         }
     };
 
@@ -108,7 +109,7 @@ const LoginPage: React.FC = () => {
                 </div>
                 
                 <div className="text-sm text-center mt-4">
-                    <a href="#" className="font-medium text-blue-600 hover:text-blue-500">
+                    <a href="/forgot-password" className="font-medium text-blue-600 hover:text-blue-500">
                         Esqueceu a password?
                     </a>
                 </div>

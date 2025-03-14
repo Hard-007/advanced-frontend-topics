@@ -16,7 +16,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
         placeholder="pesquisar..."
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className="w-full py-3 px-4 pr-12 border border-gray-200 rounded-lg"
+        className="w-full py-3 px-4 pr-12 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
       />
       <button className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">
         <svg

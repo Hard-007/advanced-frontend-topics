@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFirebase } from '../hooks/useFirebase';
 
 const SignupPage: React.FC = () => {
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [passwordError, setPasswordError] = useState('');
+    const navigate = useNavigate();
     
     // Use the Firebase hook for authentication
-    const { loading, error, c, signInWithGoogle } = useFirebase();
+    const { loading, error, signInWithGoogle, registerWithEmail } = useFirebase();
 
     const handleEmailPasswordSignup = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -20,16 +23,16 @@ const SignupPage: React.FC = () => {
         }
         
         setPasswordError('');
-        const result = await signUpWithEmail(email, password);
+        const result = await registerWithEmail(name, email, password);
         if (result) {
-            router.push('/dashboard');
+            navigate('/');
         }
     };
 
     const handleGoogleSignup = async () => {
         const result = await signInWithGoogle();
         if (result) {
-            router.push('/dashboard');
+            navigate('/');
         }
     };
 
@@ -55,6 +58,19 @@ const SignupPage: React.FC = () => {
                 <form className="mt-8 space-y-6" onSubmit={handleEmailPasswordSignup}>
                     <div className="rounded-md shadow-sm -space-y-px">
                         <div>
+                            <label htmlFor="email-address" className="sr-only">Nome</label>
+                            <input
+                                id="email-address"
+                                name="name"
+                                type="text"
+                                required
+                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                                placeholder="Nome"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                        </div>
+                        <div>
                             <label htmlFor="email-address" className="sr-only">Email</label>
                             <input
                                 id="email-address"
@@ -62,7 +78,7 @@ const SignupPage: React.FC = () => {
                                 type="email"
                                 autoComplete="email"
                                 required
-                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
                                 placeholder="Email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
